@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="Coderthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+
+    </head>
+
+    <body>
+        <div id="wrapper">
+            <div class="row">
+                    <div class="tasks border mt-5 ml-5">
+                            <div class="card border">
+                                <div class="card-body p-3">
+                                    <div class="weather__city"></div>
+                                    <div class="row">
+                                        <div class="weather__icon"></div>
+                                        <div style="font-size: 30px" class="weather__forecast mt-1"></div>
+                                    </div>
+                                    <div class="weather__desc pt-1"></div>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="tasks border mt-5 ml-5">
+                            <div class="card border">
+                                <div class="card-body p-3">
+                                    <div class="weather__city_krs"></div>
+                                    <div class="row">
+                                        <div class="weather__icon_krs"></div>
+                                        <div style="font-size: 30px" class="weather__forecast_krs mt-1"></div>
+                                    </div>
+                                    <div class="weather__desc_krs pt-1"></div>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="tasks border mt-5 ml-5">
+                            <div class="card border">
+                                <div class="card-body p-3">
+                                    <div class="weather__city_al"></div>
+                                    <div class="row">
+                                        <div class="weather__icon_al"></div>
+                                        <div style="font-size: 30px" class="weather__forecast_al mt-1"></div>
+                                    </div>
+                                    <div class="weather__desc_al pt-1"></div>
+                                </div>
+                            </div>
+                    </div>
+            </div>
+
+        <script>
+            let dataSPB = [];
+            let dataKRS = [];
+            let dataAL = [];
+            let idSPB = 498817;
+            let idAL = 324190;
+            let urlSPB = 'http://api.openweathermap.org/data/2.5/weather?id='+idSPB+'&lang=ru&appid=5549c35b15806a332df854f56c0dcb63';
+            let urlKRS = 'http://api.openweathermap.org/data/2.5/weather?id=542133&lang=ru&appid=5549c35b15806a332df854f56c0dcb63';
+            let urlAL = 'http://api.openweathermap.org/data/2.5/weather?id='+idAL+'&lang=ru&appid=5549c35b15806a332df854f56c0dcb63';
+
+            fetch(urlSPB).then(function (resp) {return resp.json() }).then(function (dataSPB) {
+
+                document.querySelector('.weather__city').textContent = dataSPB.name;
+
+                document.querySelector('.weather__forecast').innerHTML = Math.round(dataSPB.main.temp - 273) + '&deg;';
+
+                document.querySelector('.weather__desc').textContent = dataSPB.weather[0]['description'];
+
+                document.querySelector('.weather__icon').innerHTML = `<img style="width: 50px; height: 50px" src="https://openweathermap.org/img/wn/${dataSPB.weather[0]['icon']}@2x.png">`;
+            })
+                .catch(function () {
+                    document.querySelector('.weather__city').textContent = " NO Connect";
+                });
+
+            fetch(urlKRS).then(function (resp) {return resp.json() }).then(function (dataKRS) {
+
+                document.querySelector('.weather__city_krs').textContent = dataKRS.name;
+
+                document.querySelector('.weather__forecast_krs').innerHTML = Math.round(dataKRS.main.temp - 273) + '&deg;';
+
+                document.querySelector('.weather__desc_krs').textContent = dataKRS.weather[0]['description'];
+
+                document.querySelector('.weather__icon_krs').innerHTML = `<img style="width: 50px; height: 50px" src="https://openweathermap.org/img/wn/${dataKRS.weather[0]['icon']}@2x.png">`;
+            })
+                .catch(function () {
+                    document.querySelector('.weather__city_krs').textContent = " NO Connect";
+                });
+
+            fetch(urlAL).then(function (resp) {return resp.json() }).then(function (dataAL) {
+
+                document.querySelector('.weather__city_al').textContent = dataAL.name;
+
+                document.querySelector('.weather__forecast_al').innerHTML = Math.round(dataAL.main.temp - 273) + '&deg;';
+
+                document.querySelector('.weather__desc_al').textContent = dataAL.weather[0]['description'];
+
+                document.querySelector('.weather__icon_al').innerHTML = `<img style="width: 50px; height: 50px" src="https://openweathermap.org/img/wn/${dataAL.weather[0]['icon']}@2x.png">`;
+            })
+                .catch(function () {
+                    document.querySelector('.weather__city_al').textContent = " NO Connect";
+                });
+        </script>
+    </body>
+</html>
+
+
+
